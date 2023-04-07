@@ -1,11 +1,11 @@
 //jshint esversion:6
 
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const  PORT = process.env.PORT || 3000;
-
 
 const app = express();
 
@@ -14,7 +14,16 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://putraadwii00:dekaa098@cluster0.tchoeud.mongodb.net/todolistDB",{useNewUrlParser:true});
+mongoose.set('strictQuery', false);
+const connectDB = async ()=>{
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log('MongoDB Connect : $(conn.connection.host)');
+  } catch (error){
+    console.log(error);
+    process.exit(1)
+  }
+}
 
 const itemScema = {
   name: String
@@ -134,6 +143,9 @@ app.get("/about", function(req, res){
   res.render("about");
 });
 
-app.listen(PORT, function() {
-  console.log("Server started on port " + PORT);
-});
+connectDB().then(()=>{
+  app.listen(PORT, () => {
+    console.log("Server started on port " + PORT);
+  });
+})
+
