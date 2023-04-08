@@ -18,7 +18,7 @@ mongoose.set('strictQuery', false);
 async function connectDB(){
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI, {useNewUrlParser : true, useUnifiedTopology: true});
-    console.log('MongoDB Connect : ' + conn.connection.host);
+    console.log(`MongoDB Connect :  ${conn.connection.host}`);
   } catch (error){
     console.log(error);
     process.exit(1)
@@ -148,4 +148,4 @@ connectDB().then(()=>{
     console.log("Server started on port " + PORT);
   });
 })
-
+module.exports = connectDB;
