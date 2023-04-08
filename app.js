@@ -1,6 +1,6 @@
 //jshint esversion:6
 
-require('dotenv').config();
+require('dotenv').config({ path: '.env' });
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -15,10 +15,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 mongoose.set('strictQuery', false);
-const connectDB = async ()=>{
+async function connectDB(){
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log('MongoDB Connect : $(conn.connection.host)');
+    const conn = mongoose.connect(process.env.MONGO_URI);
+    console.log('MongoDB Connect : ' + conn.connection.host);
   } catch (error){
     console.log(error);
     process.exit(1)
