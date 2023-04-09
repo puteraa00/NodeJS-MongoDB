@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const  PORT = process.env.PORT || 3000;
 const dotenv = require("dotenv");
-dotenv.config(options,{path:'.env'})
+require('dotenv').config({path: './.env'});
 
 const app = express();
 
