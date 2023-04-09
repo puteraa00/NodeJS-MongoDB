@@ -149,6 +149,6 @@ connectDB().then(()=>{
     console.log("Server started on port " + PORT);
   });
 })
-sa
+
 dotenv.config()
 module.exports = connectDB;
