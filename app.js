@@ -1,12 +1,12 @@
 //jshint esversion:6
 
-require('dotenv').config({ path: '/.env' });
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const  PORT = process.env.PORT || 3000;
 const dotenv = require("dotenv");
+dotenv.config(options,{path:'.env'})
 
 const app = express();
 
@@ -149,5 +149,6 @@ connectDB().then(()=>{
     console.log("Server started on port " + PORT);
   });
 })
+sa
 dotenv.config()
 module.exports = connectDB;
