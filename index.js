@@ -1,12 +1,10 @@
 //jshint esversion:6
-
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const  PORT = process.env.PORT || 3000;
-const dotenv = require("dotenv");
-require('dotenv').config({path: './.env'});
 
 const app = express();
 
@@ -16,10 +14,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 mongoose.set('strictQuery', false);
-const connectDB = async()=>{
+
+async function connectDB(){
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {useNewUrlParser : true, useUnifiedTopology: true});
-    console.log(`MongoDB Connect :  ${conn.connection.host}`);
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+        
+    console.log("MongoDB Connected: " + conn.connection.host);
   } catch (error){
     console.log(error);
     process.exit(1)
@@ -145,9 +145,8 @@ app.get("/about", function(req, res){
 });
 
 connectDB().then(()=>{
-  app.listen(PORT, () => {
+  app.listen(PORT, function() {
     console.log("Server started on port " + PORT);
   });
 })
 
-module.exports = connectDB;
