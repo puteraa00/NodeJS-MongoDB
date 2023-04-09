@@ -150,5 +150,4 @@ connectDB().then(()=>{
   });
 })
 
-dotenv.config()
 module.exports = connectDB;
